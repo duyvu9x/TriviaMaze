@@ -1,5 +1,5 @@
 package Application;
 
-public class Maze {
+public class LoadMaze {
 
 }
