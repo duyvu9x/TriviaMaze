@@ -17,7 +17,7 @@ public class function_quesiton {
 		Random rand = new Random();
 		int intRandom = rand.nextInt(15) + 1;
 		if(intRandom > 1) {
-			intRandom = 6 * (intRandom - 1);
+			intRandom = 7 * (intRandom - 1);
 		}
 		try {
 			while(!Files.readAllLines(Paths.get("questions.txt")).get(intRandom).equals("*")) {
