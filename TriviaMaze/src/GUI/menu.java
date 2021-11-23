@@ -1,13 +1,13 @@
 package GUI;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+/**
+ * 
+ * @author Duyvu
+ *@version 1.0
+ */
 
 public class Menu {
 
@@ -51,14 +51,14 @@ public class Menu {
 		/**
 		 * initialize buttton.
 		 */
-		JButton btnLogin = new JButton("Login");
+		JButton btnFile = new JButton("File");
 		JButton btnGuest = new JButton("Guest");
 		JButton btnPlay = new JButton("Play");
 		JButton btnScore = new JButton("High Score");
 		JButton btnSetting = new JButton("Setting");
 
-		btnLogin.setBounds(180, 50, 120, 40);
-		frmMemuGame.getContentPane().add(btnLogin);
+		btnFile.setBounds(180, 50, 120, 40);
+		frmMemuGame.getContentPane().add(btnFile);
 
 		btnGuest.setBounds(180, 100, 120, 40);
 		frmMemuGame.getContentPane().add(btnGuest);

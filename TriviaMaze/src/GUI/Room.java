@@ -1,11 +1,12 @@
 package GUI;
 
+
 /**
  * 
- * @author Duy Vu
+ * @author Duyvu
  * @version 1.0
  *
  */
-public class Maze {
+public class Room {
 
 }

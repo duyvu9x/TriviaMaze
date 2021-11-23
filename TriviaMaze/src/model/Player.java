@@ -8,11 +8,11 @@ public class Player {
 	/**
 	 * myX X coordinate of player.
 	 */
-	private int myX;
+	private int myCol;
 	/**
 	 * myY Y coordinate of player
 	 */
-	private int myY;
+	private int myRow;
 	
 	/**
 	 * myStartX X start coordinate.
@@ -26,42 +26,145 @@ public class Player {
 	 * myKey key to open door.
 	 */
 	private int myKey;
+	/**
+	 * map 2D array map.
+	 */
+	private char[][] myMap;
 //	/**
-//	 *myCanGo true if still have eay to exit. 
+//	 * position of Player.
 //	 */
-//	private boolean myCanGo;
+//	private int position;
+
 	
 	
 	
-	protected Player( final String theId, final int theX, final int theY, final int theKey) {
-		myX = theX;
-		myY = theY;
-		myStartX = theX;
-		myStartY = theY;
+	public Player( final String theId, final int theRow, final int theCol, final int theKey, final char[][] themap) {
+		myMap = themap;
+		myRow = theRow;
+		myCol = theCol;
 		myKey = theKey;
-//		myCanGo = true;
+		
 	}
 	
 	
-	public int getX() {
-		return myX;
+	public String getId() {
+		return myId;
 	}
-	
-	public int getY() {
-		return myY;
+
+
+	public void setId(String myId) {
+		this.myId = myId;
 	}
-	
-	public int getkey() {
+
+
+	public int getCol() {
+		return myCol;
+	}
+
+
+	public void setCol(int myCol) {
+		this.myCol = myCol;
+	}
+
+
+	public int getRow() {
+		return myRow;
+	}
+
+
+	public void setRow(int myRow) {
+		this.myRow = myRow;
+	}
+
+
+	public int getStartX() {
+		return myStartX;
+	}
+
+
+	public void setStartX(int myStartX) {
+		this.myStartX = myStartX;
+	}
+
+
+	public int getStartY() {
+		return myStartY;
+	}
+
+
+	public void setStartY(int myStartY) {
+		this.myStartY = myStartY;
+	}
+
+
+	public int getKey() {
 		return myKey;
 	}
-//	public boolean canWin() {
-//		if( myKey> 0) {
-//			myCanGo = true;
-//		} else {
-//			
-//		}
-//		return myCanGo;
-//		
-//	}
 
+
+	public void setKey(int myKey) {
+		this.myKey = myKey;
+	}
+
+
+	public char[][] getMap() {
+		return myMap;
+	}
+
+
+	public void setMap(char[][] myMap) {
+		this.myMap = myMap;
+	}
+
+	
+
+	public void goUp() {
+		int row = myRow -1;
+		int col = myCol;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	public void goDown() {
+		int row = myRow +1;
+		int col = myCol;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	public void goRight() {
+		int row = myRow;
+		int col = myCol +1;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	public void goLeft() {
+		int row = myRow;
+		int col = myCol -1;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	
+	
+	public boolean CanPass( int row , int col) {
+		boolean canpass = false;
+		if(row >= 0 && col >=0 && row< myMap.length  
+		     && col <= myMap[0].length && myMap[row][col]!= '#') {
+			canpass = true;
+		}
+		
+		return canpass;
+	}
+	
+	
+	
+	
+	
+	
 }
