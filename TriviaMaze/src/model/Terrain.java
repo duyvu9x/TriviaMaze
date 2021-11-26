@@ -11,27 +11,25 @@ public enum Terrain {
     /**
      * Entrange door in room
      */
-    ENTRANCE('*'),
+    ENTRANCE('S'),
 
     /**
      * Wall.
      */
-    WALL('X'),
+    WALL('#'),
 
     /**
      * Exit door to go out.
      */
-    EXIT('@'),
+    EXIT('E'),
 	/**
-	 * room
+	 * Room open.
 	 */
-    ROOM('/'),
-    
-    /**
-     * fence.
-     */
-    
-    FENCE('#');
+    ROOMOPEN('/'),
+	/**
+	 * Room close.
+	 */
+	ROOMCLOSE('|');
 
 	
 

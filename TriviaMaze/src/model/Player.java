@@ -29,23 +29,70 @@ public class Player {
 	/**
 	 * map 2D array map.
 	 */
-	private char[][] myMap;
+	private Terrain[][] myMap;
 //	/**
 //	 * position of Player.
 //	 */
-//	private int position;
+//	private Terrain position;
+	private Terrain myTerrain;
 
 	
 	
 	
-	public Player( final String theId, final int theRow, final int theCol, final int theKey, final char[][] themap) {
+	public Player( final String theId, final int theRow, final int theCol, final int theKey, final Terrain[][] themap) {
 		myMap = themap;
 		myRow = theRow;
 		myCol = theCol;
 		myKey = theKey;
+		myId = theId;
+//		myTerrain = theTerrain;
 		
 	}
 	
+	
+	public void goUp() {
+		int row = myRow -1;
+		int col = myCol;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	public void goDown() {
+		int row = myRow +1;
+		int col = myCol;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	public void goRight() {
+		int row = myRow;
+		int col = myCol +1;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	public void goLeft() {
+		int row = myRow;
+		int col = myCol -1;
+		if( CanPass(row, col)) {
+			myCol = col;
+			myRow = row;
+		}
+	}
+	
+	
+	public boolean CanPass( int row , int col) {
+		boolean canpass = false;
+		if(row >= 0 && col >=0 && row< myMap.length  
+		     && col <= myMap[0].length && myMap[row][col]!= Terrain.WALL) {
+			canpass = true;
+		}
+		
+		return canpass;
+	}
 	
 	public String getId() {
 		return myId;
@@ -107,59 +154,16 @@ public class Player {
 	}
 
 
-	public char[][] getMap() {
+	public Terrain[][] getMap() {
 		return myMap;
 	}
-
-
-	public void setMap(char[][] myMap) {
-		this.myMap = myMap;
-	}
-
 	
-
-	public void goUp() {
-		int row = myRow -1;
-		int col = myCol;
-		if( CanPass(row, col)) {
-			myCol = col;
-			myRow = row;
-		}
-	}
-	public void goDown() {
-		int row = myRow +1;
-		int col = myCol;
-		if( CanPass(row, col)) {
-			myCol = col;
-			myRow = row;
-		}
-	}
-	public void goRight() {
-		int row = myRow;
-		int col = myCol +1;
-		if( CanPass(row, col)) {
-			myCol = col;
-			myRow = row;
-		}
-	}
-	public void goLeft() {
-		int row = myRow;
-		int col = myCol -1;
-		if( CanPass(row, col)) {
-			myCol = col;
-			myRow = row;
-		}
+	public void setTerrain(Terrain myTerrain) {
+		this.myTerrain = myTerrain;
 	}
 	
-	
-	public boolean CanPass( int row , int col) {
-		boolean canpass = false;
-		if(row >= 0 && col >=0 && row< myMap.length  
-		     && col <= myMap[0].length && myMap[row][col]!= '#') {
-			canpass = true;
-		}
-		
-		return canpass;
+	public Terrain getTerrain() {
+		return myTerrain;
 	}
 	
 	
