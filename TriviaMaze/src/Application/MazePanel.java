@@ -4,6 +4,9 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -159,19 +162,27 @@ public class MazePanel extends JPanel implements ActionListener {
 	
 
 	public void getImage() {
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\DoorReady.png");
+		final String workingDirectory, resourcePath;
+		try {
+            		workingDirectory = System.getProperty("user.dir"); // get the current working directory
+			resourcePath = workingDirectory + File.separator + "resources";
+		} catch (final IOException e) {
+            		System.out.println(e);
+        	}
+		
+		img = new ImageIcon(resourcesPath + File.separator + "DoorReady.png");
 		DoorReady = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Entrange.png");
+		img = new ImageIcon(resourcesPath + File.separator + "Entrange.png");
 		Entrange = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Exit.png");
+		img = new ImageIcon(resourcesPath + File.separator + "Exit.png");
 		Exit = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\RoomClose.png");
+		img = new ImageIcon(resourcesPath + File.separator + "RoomClose.png");
 		RoomClose = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\RoomOpen.png");
+		img = new ImageIcon(resourcesPath + File.separator + "RoomOpen.png");
 		RoomOpen = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Street.png");
+		img = new ImageIcon(resourcesPath + File.separator + "Street.png");
 		Street = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Wall.png");
+		img = new ImageIcon(resourcesPath + File.separator + "Wall.png");
 		Wall = img.getImage();
 
 	}
