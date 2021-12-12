@@ -13,27 +13,14 @@ public class Player {
 	private int Row;
 	private int Col;
 	private String myID;
-
+	private char[][] myGraph;
 	private Image playerImg;
 
 	public Player() {
-		playerImg = img.getImage();
 
-		Row = 1;
-		Col = 1;
 	}
 
-	public Image getPlayerImage() {
-		return playerImg;
-	}
-
-	public int getRow() {
-		return Row;
-	}
-
-	public int getCol() {
-		return Col;
-	}
+	
 
 	public void moveUp() {
 		Row = Row - 1;
@@ -66,6 +53,23 @@ public class Player {
 
 		return false;
 	}
+	public Image getPlayerImage() {
+		return playerImg;
+	}
+
+	public int getRow() {
+		return Row;
+	}
+	public void setRow(int row) {
+		this.Row = row;;
+	}
+
+	public int getCol() {
+		return Col;
+	}
+	public void setCol(int Col) {
+		this.Col = Col;
+	}
 
 	public String getMyID() {
 		return myID;
@@ -74,5 +78,13 @@ public class Player {
 	public void setMyID(String myID) {
 		this.myID = myID;
 	}
+	public char[][] getMyGraph(){
+		return myGraph;
+	}
+	
+	public void setMyGraph(char[][] myGraph) {
+		this.myGraph = myGraph;
+	}
+
 
 }

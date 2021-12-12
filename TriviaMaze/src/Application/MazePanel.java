@@ -1,7 +1,9 @@
 package Application;
 
 import java.awt.event.*;
+import java.io.File;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.swing.*;
 
@@ -9,60 +11,50 @@ import java.awt.*;
 import Application.*;
 
 public class MazePanel extends JPanel implements ActionListener {
-
-	private Timer timer;
-	private int Size = 32;
-	private char[][] Graph;
-	private int Row;
-	private int Col;
-	private Player p;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private static ImageIcon img;
 	private Image DoorReady;
 	private Image Entrange;
 	private Image Exit;
-	private Image Player;
 	private Image RoomClose;
 	private Image RoomOpen;
 	private Image Street;
 	private Image Wall;
 
+	private Timer timer;
+	private int Size = 12;
+	
+	private  Scanner inputFile;
+	
+	private  char[][] Graph;
+	private  int Row;
+	private  int Col;
+	private Player p;
+
+	
+
 	public MazePanel() {
-		p = new Player();
-		addKeyListener(new Al());
-		setFocusable(true);
 		timer = new Timer(10, this);
 		timer.start();
-		getImage();
-		getMap();
-
-	}
-
-	public void getMap() {
-		Graph = null;
+		p = TriviaMaze.myPlayerGroup12;
+		
+		Graph = getNewMap();
 		Row = Graph.length;
 		Col = Graph[0].length;
-	}
+		
+		addKeyListener(new Al());
+		setFocusable(true);
+		getImage();
 
-	public void getImage() {
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\DoorReady.png");
-		DoorReady = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Entrange.png");
-		Entrange = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Exit.png");
-		Exit = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Player.png");
-		Player = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\RoomClose.png");
-		RoomClose = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\RoomOpen.png");
-		RoomOpen = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Street.png");
-		Street = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Wall.png");
-		Wall = img.getImage();
+		
+	
 
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -72,14 +64,17 @@ public class MazePanel extends JPanel implements ActionListener {
 
 	public void paint(Graphics g) {
 		super.paint(g);
+	
+		g.setColor(Color.RED);
+		g.fillRect(45,45,32 ,32);
 
 
-		for (int i = 0; i < Row; i++) {
-			for (int j = 0; j < Col; j++) {
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 12; j++) {
 
 				switch (Graph[i][j]) {
 				case '#': {
-
+					
 					g.drawImage(Wall, j * Size, i * Size, Size, Size, null);
 					break;
 				}
@@ -149,5 +144,70 @@ public class MazePanel extends JPanel implements ActionListener {
 		}
 
 	}
+	
+
+	
+
+	public void getImage() {
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\DoorReady.png");
+		DoorReady = img.getImage();
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Entrange.png");
+		Entrange = img.getImage();
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Exit.png");
+		Exit = img.getImage();
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Player.png");
+		RoomClose = img.getImage();
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\RoomOpen.png");
+		RoomOpen = img.getImage();
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Street.png");
+		Street = img.getImage();
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Wall.png");
+		Wall = img.getImage();
+
+	}
+	
+	public  void openFile() {
+		try {
+			inputFile = new Scanner(new File("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\map\\easy_map1.txt"));
+			
+		}catch(Exception e) {
+			System.out.println("Can not find file");
+		}
+	}
+	
+	public  char[][] getNewMap() {
+		openFile();
+		int Row, Col ;
+		char[][] Map = null;
+		while(inputFile.hasNext()) {
+			Row = inputFile.nextInt();
+			Col = inputFile.nextInt();
+			Map = new char[Row][Col];
+			for( int i = 0 ; i < Row ; i ++) {
+				String str = inputFile.next();
+				for( int j = 0 ; j < Col ; j++) {
+					Map[i][j] = str.charAt(j);
+					
+				}
+			}
+			int x = inputFile.nextInt();
+			int y = inputFile.nextInt();
+		}
+		return Map;
+		
+		
+	}
+
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+

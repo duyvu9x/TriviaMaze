@@ -4,9 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Application.TriviaMaze;
+
 public class TriviaMazeGUI {
-//	private JButton btbShowPanel1;
-	public static JFrame myFrame;
+	public  JFrame myFrame;
 	public JLayeredPane layeredPane;
 	
 	public  JPanel myLoginPanel;
@@ -16,33 +17,32 @@ public class TriviaMazeGUI {
 	public  JPanel myMazePanel;
 	
 	
-	
 	public  JTextField inputID;
 	
 	
-	public Player playerGroup12;
+//	public  Player playerGroup12;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TriviaMazeGUI window = new TriviaMazeGUI();
-					window.myFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TriviaMazeGUI window = new TriviaMazeGUI();
+//					window.myFrame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
 	public TriviaMazeGUI() {
-		playerGroup12 = new Player();
+
 		startGame();
 		
 
@@ -60,17 +60,14 @@ public class TriviaMazeGUI {
 		layeredPane = new JLayeredPane();
 		myFrame.getContentPane().add(layeredPane, BorderLayout.CENTER);
 		createLoginPanel();
-//		createMenuPanel();
-//		createMazePanel();
 	}
 
 	public void createLoginPanel() {
-//		layeredPane.setLayout(null);
 
 		// create loginPanel
 		myLoginPanel = new JPanel();
 		myLoginPanel.setBackground(Color.LIGHT_GRAY);
-		myLoginPanel.setBounds(29, 26, 302, 313);
+		myLoginPanel.setBounds(0, 0, 856, 686);
 		layeredPane.add(myLoginPanel);
 
 		// create new player button
@@ -103,9 +100,9 @@ public class TriviaMazeGUI {
 		myLoginPanel.add(btnInputLogin);
 
 		myLoginPanel.setVisible(true);
-
-		// actionlistenter for button
-
+	
+		
+		
 		btnNewPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputID.setVisible(true);
@@ -126,9 +123,12 @@ public class TriviaMazeGUI {
 				// create player in player model
 				myLoginPanel.setVisible(false);
 				String name = inputID.getText();
-				playerGroup12.setMyID(name);
-				JOptionPane.showMessageDialog(myFrame, playerGroup12.getMyID());
+				TriviaMaze.myPlayerGroup12.setMyID(name);
+				JOptionPane.showMessageDialog(myFrame, TriviaMaze.myPlayerGroup12.getMyID());
 				createMenuPanel();
+
+				
+				
 			}
 		});
 		btnInputLogin.addActionListener(new ActionListener() {
@@ -136,67 +136,26 @@ public class TriviaMazeGUI {
 				String name = inputID.getText();
 				myLoginPanel.setVisible(false);
 				String nameLogin = inputID.getText();
-				playerGroup12.setMyID(nameLogin);
-				JOptionPane.showMessageDialog(myFrame, playerGroup12.getMyID());
+				TriviaMaze.myPlayerGroup12.setMyID(nameLogin);
+				JOptionPane.showMessageDialog(myFrame, TriviaMaze.myPlayerGroup12.getMyID());
+				createMenuPanel();
+
 				
 				
-//				createMenuPanel();
 
 			}
 		});
-		
-		JPanel myMenuPanel = new JPanel();
-		myMenuPanel.setBounds(440, 11, 378, 267);
-
-		myMenuPanel.setLayout(null);
-
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(164, 36, 100, 32);
-		myMenuPanel.add(btnNewGame);
-
-		JButton btnResumeGame = new JButton("Resume Game");
-		btnResumeGame.setBounds(164, 79, 100, 32);
-		myMenuPanel.add(btnResumeGame);
-		Choice choice = new Choice();
-		choice.setBounds(164, 132, 100, 41);
-		choice.add("Level");
-		choice.add("Easy");
-		choice.add("Medium");
-		choice.add("Dificult");
-		myMenuPanel.add(choice);
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				myFrame.getContentPane().add(new MazePanel());
-
-			}
-		});
-		layeredPane.add(myMenuPanel);
-		
-		JPanel panel = new MazePanel();
-		panel.setBounds(29, 367, 399, 273);
-		layeredPane.add(panel);
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 
 	}
 
 	public void createMenuPanel() {
 
-//		JPanel myMenuPanel = new MenuPanel();
-//		layeredPane.add(myMenuPanel);
-
 		JPanel myMenuPanel = new JPanel();
-		myMenuPanel.setBounds(230, 100, 400, 400);
-
+		myMenuPanel.setBounds(0, 0, 856, 686);
 		myMenuPanel.setLayout(null);
+		layeredPane.add(myMenuPanel);
+		myMenuPanel.setVisible(true);
 
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.setBounds(164, 36, 100, 32);
@@ -212,33 +171,22 @@ public class TriviaMazeGUI {
 		choice.add("Medium");
 		choice.add("Dificult");
 		myMenuPanel.add(choice);
+		
 		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				myFrame.getContentPane().add(new MazePanel());
+			public void actionPerformed(ActionEvent e) {				
+				TriviaMaze.getNewMap();			
+				JPanel panel = new MazePanel();
+				panel.setBounds(0, 0, 856, 686);
+				layeredPane.add(panel);
+
+				myMenuPanel.setVisible(false);
+				
 
 			}
 		});
-		layeredPane.add(myMenuPanel);
-
 	}
 
-	public void createMazePanel() {
-		
-		myFrame.getContentPane().add( new MazePanel());
-		
-		
 
-//		JPanel myMenuPanel = new JPanel();
-//		myMenuPanel.setBounds(230, 100, 400, 400);
-//		layeredPane.add(myMenuPanel);
-//		myMenuPanel.setVisible(true);
-//		JButton btnInputNewName = new JButton("OK");
-//		btnInputNewName.setBounds(188, 121, 89, 23);
-//		btnInputNewName.setVisible(true);
 
-	}
 
-	public void createQuestionPanel() {
-
-	}
 }

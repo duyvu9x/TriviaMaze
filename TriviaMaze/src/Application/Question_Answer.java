@@ -10,8 +10,13 @@ public class Question_Answer {
 	// function to get question in SQL/ SQlite
 	public ArrayList<String> getQuestion() {
 		ArrayList<String> myQuestion = null;
+		
+		
 		return myQuestion;
 	}
+	
+	
+	
 	// let question is answer .
 	public void questionAnswer( ArrayList<String> question ) {
 	}
