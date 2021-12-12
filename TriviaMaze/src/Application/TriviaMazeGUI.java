@@ -8,13 +8,13 @@ import Application.TriviaMaze;
 
 public class TriviaMazeGUI {
 	public  JFrame myFrame;
-	public JLayeredPane layeredPane;
+	public static JLayeredPane layeredPane;
 	
 	public  JPanel myLoginPanel;
 	
-	public  JPanel myMenuPanel;
+	public   JPanel myMenuPanel;
 	
-	public  JPanel myMazePanel;
+	public static  JPanel myMazePanel;
 	
 	
 	public  JTextField inputID;
@@ -149,7 +149,7 @@ public class TriviaMazeGUI {
 
 	}
 
-	public void createMenuPanel() {
+	public static void createMenuPanel() {
 
 		JPanel myMenuPanel = new JPanel();
 		myMenuPanel.setBounds(0, 0, 856, 686);
@@ -175,9 +175,9 @@ public class TriviaMazeGUI {
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				TriviaMaze.getNewMap();			
-				JPanel panel = new MazePanel();
-				panel.setBounds(0, 0, 856, 686);
-				layeredPane.add(panel);
+				myMazePanel = new MazePanel();
+				myMazePanel.setBounds(0, 0, 856, 686);
+				layeredPane.add(myMazePanel);
 
 				myMenuPanel.setVisible(false);
 				

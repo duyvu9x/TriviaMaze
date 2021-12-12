@@ -9,12 +9,12 @@ import java.awt.*;
 import Application.*;
 
 public class Player {
-	private ImageIcon img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Player.png");
+	private ImageIcon img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Player.png");
 	private int Row;
 	private int Col;
 	private String myID;
 	private char[][] myGraph;
-	private Image playerImg;
+	private Image playerImg = img.getImage();
 
 	public Player() {
 
@@ -43,16 +43,6 @@ public class Player {
 
 	}
 
-	public boolean canGo(int row, int col) {
-//		if (row >= 0 && col >= 0 && row <= 32 && col <= LoadGame.getMap()[0].length) {
-//			char ch = LoadGame.getLocation(row, col);
-//			if (ch != '#' || ch != 'r') {
-//				return true;
-//			}
-//		}
-
-		return false;
-	}
 	public Image getPlayerImage() {
 		return playerImg;
 	}

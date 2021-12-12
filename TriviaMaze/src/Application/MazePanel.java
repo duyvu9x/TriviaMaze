@@ -9,13 +9,14 @@ import javax.swing.*;
 
 import java.awt.*;
 import Application.*;
+import Application.TriviaMazeGUI;
 
 public class MazePanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private static ImageIcon img;
 	private Image DoorReady;
 	private Image Entrange;
@@ -26,35 +27,27 @@ public class MazePanel extends JPanel implements ActionListener {
 	private Image Wall;
 
 	private Timer timer;
-	private int Size = 12;
-	
-	private  Scanner inputFile;
-	
-	private  char[][] Graph;
-	private  int Row;
-	private  int Col;
-	private Player p;
+	private int Size = 32;
 
-	
+	private char[][] Graph;
+	private int Row;
+	private int Col;
+	private Player p;
 
 	public MazePanel() {
 		timer = new Timer(10, this);
 		timer.start();
 		p = TriviaMaze.myPlayerGroup12;
-		
-		Graph = getNewMap();
+
+		Graph = p.getMyGraph();
 		Row = Graph.length;
 		Col = Graph[0].length;
-		
+
 		addKeyListener(new Al());
 		setFocusable(true);
 		getImage();
 
-		
-	
-
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -64,17 +57,13 @@ public class MazePanel extends JPanel implements ActionListener {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-	
-		g.setColor(Color.RED);
-		g.fillRect(45,45,32 ,32);
 
-
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 12; j++) {
+		for (int i = 0; i < Row; i++) {
+			for (int j = 0; j < Col; j++) {
 
 				switch (Graph[i][j]) {
 				case '#': {
-					
+
 					g.drawImage(Wall, j * Size, i * Size, Size, Size, null);
 					break;
 				}
@@ -87,7 +76,7 @@ public class MazePanel extends JPanel implements ActionListener {
 
 					g.drawImage(Street, j * Size, i * Size, Size, Size, null);
 					break;
-					
+
 				}
 				case 'e': {
 
@@ -114,100 +103,77 @@ public class MazePanel extends JPanel implements ActionListener {
 					break;
 
 				}
-				g.drawImage(p.getPlayerImage(), p.getCol()*Size, p.getRow()*Size, Size, Size, null);
+				g.drawImage(p.getPlayerImage(), p.getCol() * Size, p.getRow() * Size, Size, Size, null);
 
 			}
 		}
 
 	}
-	
+
 	public class Al extends KeyAdapter {
 
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-			if (keyCode == KeyEvent.VK_W) {
+			if (keyCode == KeyEvent.VK_W && canGo(p.getRow() - 1, p.getCol())) {
 				p.moveUp();
 			}
-			if (keyCode == KeyEvent.VK_S) {
+			if (keyCode == KeyEvent.VK_S && canGo(p.getRow() + 1, p.getCol())) {
 				p.moveDown();
 
 			}
-			if (keyCode == KeyEvent.VK_A) {
+			if (keyCode == KeyEvent.VK_A && canGo(p.getRow(), p.getCol() - 1)) {
 				p.moveLeft();
 
 			}
-			if (keyCode == KeyEvent.VK_D) {
+			if (keyCode == KeyEvent.VK_D && canGo(p.getRow(), p.getCol() + 1)) {
 				p.moveRight();
 
 			}
 
+			challenge();
 		}
 
 	}
-	
 
+	public Boolean canGo(int row, int col) {
+		if (row < 0 || row >= Row || col < 0 || col >= Col || Graph[row][col] == '#' || Graph[row][col] == '|') {
+			return false;
+		}
+
+		return true;
+	}
+	
+	public void challenge() {
+		if(Graph[p.getRow()][p.getCol()] == '/') {
+			JOptionPane.showConfirmDialog(getComponentPopupMenu(), "Wrong way");
+		}
+		if(Graph[p.getRow()][p.getCol()] == 'e') {
+			JOptionPane.showConfirmDialog(getComponentPopupMenu(), "Exit");
+			TriviaMazeGUI.myMazePanel.setVisible(false);
+			TriviaMazeGUI.createMenuPanel();
+		
+		}
+		
+	}
+	
 	
 
 	public void getImage() {
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\DoorReady.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\DoorReady.png");
 		DoorReady = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Entrange.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Entrange.png");
 		Entrange = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Exit.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Exit.png");
 		Exit = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Player.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\RoomClose.png");
 		RoomClose = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\RoomOpen.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\RoomOpen.png");
 		RoomOpen = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Street.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Street.png");
 		Street = img.getImage();
-		img = new ImageIcon("C:\\Users\\david\\Desktop\\TriviaMazeGroup12\\icon\\Wall.png");
+		img = new ImageIcon("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\icon\\Wall.png");
 		Wall = img.getImage();
 
 	}
-	
-	public  void openFile() {
-		try {
-			inputFile = new Scanner(new File("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\map\\easy_map1.txt"));
-			
-		}catch(Exception e) {
-			System.out.println("Can not find file");
-		}
-	}
-	
-	public  char[][] getNewMap() {
-		openFile();
-		int Row, Col ;
-		char[][] Map = null;
-		while(inputFile.hasNext()) {
-			Row = inputFile.nextInt();
-			Col = inputFile.nextInt();
-			Map = new char[Row][Col];
-			for( int i = 0 ; i < Row ; i ++) {
-				String str = inputFile.next();
-				for( int j = 0 ; j < Col ; j++) {
-					Map[i][j] = str.charAt(j);
-					
-				}
-			}
-			int x = inputFile.nextInt();
-			int y = inputFile.nextInt();
-		}
-		return Map;
-		
-		
-	}
-
-	
-	
-	
 
 }
-
-
-
-
-
-
-
-
