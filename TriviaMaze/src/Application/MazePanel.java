@@ -2,11 +2,9 @@ package Application;
 
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import javax.swing.*;
 
@@ -145,44 +143,51 @@ public class MazePanel extends JPanel implements ActionListener {
 
 		return true;
 	}
-	
+
 	public void challenge() {
-		if(Graph[p.getRow()][p.getCol()] == '/') {
-			JOptionPane.showConfirmDialog(getComponentPopupMenu(), "Wrong way");
+		if (Graph[p.getRow()][p.getCol()] == '/') {
+			String[] possibilities = {"ham", "spam", "yam"};
+			
+			String s = (String)JOptionPane.showInputDialog(
+			                    null,
+			                    "Complete the sentence:\n"
+			                    + possibilities[0],
+			                    "Customized Dialog",
+			                    JOptionPane.PLAIN_MESSAGE,
+			                    null,
+			                    possibilities,
+			                    "ham");
+			if(s.equals("ham")) {
+				JOptionPane.showMessageDialog(null,"cottrcnet");
+				
+			}
+
+		
 		}
-		if(Graph[p.getRow()][p.getCol()] == 'e') {
+		if (Graph[p.getRow()][p.getCol()] == 'e') {
 			JOptionPane.showConfirmDialog(getComponentPopupMenu(), "Exit");
+			p.setMyGraph(null);
 			TriviaMazeGUI.myMazePanel.setVisible(false);
 			TriviaMazeGUI.createMenuPanel();
-		
+
 		}
-		
+
 	}
-	
-	
 
 	public void getImage() {
-		final String workingDirectory, resourcePath;
-		try {
-            		workingDirectory = System.getProperty("user.dir"); // get the current working directory
-			resourcePath = workingDirectory + File.separator + "resources";
-		} catch (final IOException e) {
-            		System.out.println(e);
-        	}
-		
-		img = new ImageIcon(resourcesPath + File.separator + "DoorReady.png");
+		img = new ImageIcon("icon\\DoorReady.png");
 		DoorReady = img.getImage();
-		img = new ImageIcon(resourcesPath + File.separator + "Entrange.png");
+		img = new ImageIcon("icon\\Entrange.png");
 		Entrange = img.getImage();
-		img = new ImageIcon(resourcesPath + File.separator + "Exit.png");
+		img = new ImageIcon("icon\\Exit.png");
 		Exit = img.getImage();
-		img = new ImageIcon(resourcesPath + File.separator + "RoomClose.png");
+		img = new ImageIcon("icon\\RoomClose.png");
 		RoomClose = img.getImage();
-		img = new ImageIcon(resourcesPath + File.separator + "RoomOpen.png");
+		img = new ImageIcon("icon\\RoomOpen.png");
 		RoomOpen = img.getImage();
-		img = new ImageIcon(resourcesPath + File.separator + "Street.png");
+		img = new ImageIcon("icon\\Street.png");
 		Street = img.getImage();
-		img = new ImageIcon(resourcesPath + File.separator + "Wall.png");
+		img = new ImageIcon("icon\\Wall.png");
 		Wall = img.getImage();
 
 	}

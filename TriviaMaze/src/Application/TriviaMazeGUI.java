@@ -20,23 +20,7 @@ public class TriviaMazeGUI {
 	public  JTextField inputID;
 	
 	
-//	public  Player playerGroup12;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TriviaMazeGUI window = new TriviaMazeGUI();
-//					window.myFrame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
@@ -53,7 +37,7 @@ public class TriviaMazeGUI {
 	 */
 	public void startGame() {
 		myFrame = new JFrame();
-		myFrame.setBounds(0, 0, 872, 725);
+		myFrame.setBounds(0, 0, 875, 802);
 		myFrame.getContentPane().setBackground(Color.GRAY);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -98,6 +82,10 @@ public class TriviaMazeGUI {
 		myLoginPanel.add(inputID);
 		myLoginPanel.add(btnInputNewName);
 		myLoginPanel.add(btnInputLogin);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(56, 707, 89, 23);
+		layeredPane.add(btnSave);
 
 		myLoginPanel.setVisible(true);
 	
@@ -184,9 +172,23 @@ public class TriviaMazeGUI {
 
 			}
 		});
+		
+		btnResumeGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+				if( TriviaMaze.myPlayerGroup12.getMyGraph() == null) {
+					JOptionPane.showMessageDialog(myMenuPanel,"No save game");
+				} else {
+				myMazePanel = new MazePanel();
+				myMazePanel.setBounds(0, 0, 856, 686);
+				layeredPane.add(myMazePanel);
+
+				myMenuPanel.setVisible(false);
+				}
+
+			}
+		});
+		
+		
+		
 	}
-
-
-
-
 }

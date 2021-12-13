@@ -32,7 +32,7 @@ public class TriviaMaze {
 	
 	public static void openFile() {
 		try {
-			inputFile = new Scanner(new File("C:\\Users\\david\\Desktop\\MazeDuyVu\\MazeFinal\\map\\easy_map1.txt"));
+			inputFile = new Scanner(new File("map\\\\easy_map1.txt"));
 			
 		}catch(Exception e) {
 			System.out.println("Can not find file");
