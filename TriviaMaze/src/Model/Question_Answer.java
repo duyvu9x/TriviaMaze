@@ -1,4 +1,4 @@
-package Application;
+package Model;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,6 @@ public class Question_Answer {
 
 	
 	
-	// function to get question in SQL/ SQlite
 	public ArrayList<String> getQuestion() {
 		ArrayList<String> myQuestion = null;
 		

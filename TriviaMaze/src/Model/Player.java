@@ -1,6 +1,7 @@
-package Application;
+package Model;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class Player {
 	private String myID;
 	private char[][] myGraph;
 	private Image playerImg = img.getImage();
+
 
 	public Player() {
 

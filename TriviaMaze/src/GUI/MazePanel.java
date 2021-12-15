@@ -1,7 +1,8 @@
-package Application;
+package GUI;
 
 import java.awt.event.*;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import Application.*;
-import Application.TriviaMazeGUI;
+import Model.Player;
 
 public class MazePanel extends JPanel implements ActionListener {
 	/**
@@ -28,7 +29,9 @@ public class MazePanel extends JPanel implements ActionListener {
 	private Image Wall;
 
 	private Timer timer;
-	private int Size = 32;
+	private final int CELL_WIDTH = 40;
+	private final int CELL_HEIGHT = 40;
+
 
 	private char[][] Graph;
 	private int Row;
@@ -39,10 +42,11 @@ public class MazePanel extends JPanel implements ActionListener {
 		timer = new Timer(10, this);
 		timer.start();
 		p = TriviaMaze.myPlayerGroup12;
-
 		Graph = p.getMyGraph();
+		
 		Row = Graph.length;
 		Col = Graph[0].length;
+		setSize(CELL_WIDTH * Col,CELL_HEIGHT * Row);
 
 		addKeyListener(new Al());
 		setFocusable(true);
@@ -65,38 +69,38 @@ public class MazePanel extends JPanel implements ActionListener {
 				switch (Graph[i][j]) {
 				case '#': {
 
-					g.drawImage(Wall, j * Size, i * Size, Size, Size, null);
+					g.drawImage(Wall, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
-				case 's': {
+				case 'S': {
 
-					g.drawImage(Entrange, j * Size, i * Size, Size, Size, null);
+					g.drawImage(Entrange, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 				case '-': {
 
-					g.drawImage(Street, j * Size, i * Size, Size, Size, null);
+					g.drawImage(Street, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 
 				}
-				case 'e': {
+				case 'E': {
 
-					g.drawImage(Exit, j * Size, i * Size, Size, Size, null);
+					g.drawImage(Exit, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 				case 'r': {
 
-					g.drawImage(DoorReady, j * Size, i * Size, Size, Size, null);
+					g.drawImage(DoorReady, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 				case '|': {
 
-					g.drawImage(RoomClose, j * Size, i * Size, Size, Size, null);
+					g.drawImage(RoomClose, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 				case '/': {
 
-					g.drawImage(RoomOpen, j * Size, i * Size, Size, Size, null);
+					g.drawImage(RoomOpen, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 
@@ -104,7 +108,7 @@ public class MazePanel extends JPanel implements ActionListener {
 					break;
 
 				}
-				g.drawImage(p.getPlayerImage(), p.getCol() * Size, p.getRow() * Size, Size, Size, null);
+				g.drawImage(p.getPlayerImage(), p.getCol() * CELL_WIDTH, p.getRow() * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 
 			}
 		}
@@ -131,7 +135,12 @@ public class MazePanel extends JPanel implements ActionListener {
 
 			}
 
-			challenge();
+			try {
+				challenge();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}
@@ -144,9 +153,21 @@ public class MazePanel extends JPanel implements ActionListener {
 		return true;
 	}
 
-	public void challenge() {
+	public String[] getListQuestion() throws SQLException {
+		ArrayList<String>  checkcode = new ArrayList<>();
+        checkcode = sql.Question_Answer.getQuestion();
+        
+        String[] list = new String[checkcode.size()];
+        for( int i = 0 ; i < list.length ; i ++) {
+        	list[i] = checkcode.get(i);
+        }
+        return list;
+	}
+	
+	public void challenge() throws SQLException {
 		if (Graph[p.getRow()][p.getCol()] == '/') {
-			String[] possibilities = {"ham", "spam", "yam"};
+			
+			String[] possibilities = getListQuestion();
 			
 			String s = (String)JOptionPane.showInputDialog(
 			                    null,
@@ -156,15 +177,19 @@ public class MazePanel extends JPanel implements ActionListener {
 			                    JOptionPane.PLAIN_MESSAGE,
 			                    null,
 			                    possibilities,
-			                    "ham");
+			                    possibilities[2]);
+			
+			
 			if(s.equals("ham")) {
 				JOptionPane.showMessageDialog(null,"cottrcnet");
 				
+			}else {
+				Graph[p.getRow()][p.getCol()] = '|';
 			}
 
 		
 		}
-		if (Graph[p.getRow()][p.getCol()] == 'e') {
+		if (Graph[p.getRow()][p.getCol()] == 'E') {
 			JOptionPane.showConfirmDialog(getComponentPopupMenu(), "Exit");
 			p.setMyGraph(null);
 			TriviaMazeGUI.myMazePanel.setVisible(false);
