@@ -1,17 +1,18 @@
 package GUI;
 
 import java.awt.event.*;
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 
+import Application.TriviaMaze;
+import Model.*;
+import GUI.*;
+
+
 import java.awt.*;
-import Application.*;
-import Model.Player;
 
 public class MazePanel extends JPanel implements ActionListener {
 	/**
@@ -20,11 +21,11 @@ public class MazePanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private static ImageIcon img;
-	private Image DoorReady;
+	private Image DoorOpen;
 	private Image Entrange;
 	private Image Exit;
-	private Image RoomClose;
-	private Image RoomOpen;
+	private Image RoomLock;
+	private Image DoorClose;
 	private Image Street;
 	private Image Wall;
 
@@ -33,10 +34,10 @@ public class MazePanel extends JPanel implements ActionListener {
 	private final int CELL_HEIGHT = 40;
 
 
-	private char[][] Graph;
+	private static char[][] Graph;
 	private int Row;
 	private int Col;
-	private Player p;
+	private static Player p;
 
 	public MazePanel() {
 		timer = new Timer(10, this);
@@ -47,10 +48,41 @@ public class MazePanel extends JPanel implements ActionListener {
 		Row = Graph.length;
 		Col = Graph[0].length;
 		setSize(CELL_WIDTH * Col,CELL_HEIGHT * Row);
-
 		addKeyListener(new Al());
 		setFocusable(true);
 		getImage();
+		
+		JButton SaveButton = new JButton("Save");
+		SaveButton.setBounds(822, 679, 89, 23);
+	    TriviaMazeGUI.layeredPane.add(SaveButton);
+		SaveButton.setVisible(true);
+		
+		JButton ExitButton = new JButton("Exit");
+		ExitButton.setBounds(693, 679, 89, 23);
+		TriviaMazeGUI.layeredPane.add(ExitButton);
+		ExitButton.setVisible(true);
+		SaveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TriviaMazeGUI.myMenuPanel.setVisible(true);
+				TriviaMazeGUI.myMazePanel.setVisible(false);
+				SaveButton.setVisible(false);
+				ExitButton.setVisible(false);
+				
+			}
+		});
+		ExitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TriviaMazeGUI.myMenuPanel.setVisible(true);
+				TriviaMazeGUI.myMazePanel.setVisible(false);
+				p.setMyGraph(null);
+				SaveButton.setVisible(false);
+				ExitButton.setVisible(false);
+				
+			}
+		});
+		
+		
+		
 
 	}
 
@@ -88,19 +120,19 @@ public class MazePanel extends JPanel implements ActionListener {
 					g.drawImage(Exit, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
-				case 'r': {
+				case 'R': {
 
-					g.drawImage(DoorReady, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
+					g.drawImage(DoorOpen, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 				case '|': {
 
-					g.drawImage(RoomClose, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
+					g.drawImage(RoomLock, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 				case '/': {
 
-					g.drawImage(RoomOpen, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
+					g.drawImage(DoorClose, j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, null);
 					break;
 				}
 
@@ -120,17 +152,25 @@ public class MazePanel extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
 			if (keyCode == KeyEvent.VK_W && canGo(p.getRow() - 1, p.getCol())) {
+				p.setPreCol(p.getCol());
+				p.setPreRow(p.getRow());	
 				p.moveUp();
 			}
 			if (keyCode == KeyEvent.VK_S && canGo(p.getRow() + 1, p.getCol())) {
+				p.setPreCol(p.getCol());
+				p.setPreRow(p.getRow());
 				p.moveDown();
 
 			}
 			if (keyCode == KeyEvent.VK_A && canGo(p.getRow(), p.getCol() - 1)) {
+				p.setPreCol(p.getCol());
+				p.setPreRow(p.getRow());
 				p.moveLeft();
 
 			}
 			if (keyCode == KeyEvent.VK_D && canGo(p.getRow(), p.getCol() + 1)) {
+				p.setPreCol(p.getCol());
+				p.setPreRow(p.getRow());
 				p.moveRight();
 
 			}
@@ -155,7 +195,7 @@ public class MazePanel extends JPanel implements ActionListener {
 
 	public String[] getListQuestion() throws SQLException {
 		ArrayList<String>  checkcode = new ArrayList<>();
-        checkcode = sql.Question_Answer.getQuestion();
+        checkcode = Model.Question_Answer.getQuestion();
         
         String[] list = new String[checkcode.size()];
         for( int i = 0 ; i < list.length ; i ++) {
@@ -166,25 +206,32 @@ public class MazePanel extends JPanel implements ActionListener {
 	
 	public void challenge() throws SQLException {
 		if (Graph[p.getRow()][p.getCol()] == '/') {
-			
 			String[] possibilities = getListQuestion();
+			String[] options = {possibilities[2],possibilities[3],possibilities[4]};
 			
 			String s = (String)JOptionPane.showInputDialog(
-			                    null,
-			                    "Complete the sentence:\n"
+					TriviaMazeGUI.layeredPane,
+			                    "Question\n"
 			                    + possibilities[0],
 			                    "Customized Dialog",
 			                    JOptionPane.PLAIN_MESSAGE,
 			                    null,
-			                    possibilities,
-			                    possibilities[2]);
+			                    options,
+			                    possibilities[1]);
 			
 			
-			if(s.equals("ham")) {
-				JOptionPane.showMessageDialog(null,"cottrcnet");
+			if(s.equals(possibilities[1])) {
+				JOptionPane.showMessageDialog(null,"correct");
+				Graph[p.getRow()][p.getCol()] = 'R';
 				
 			}else {
 				Graph[p.getRow()][p.getCol()] = '|';
+				p.setCol(p.getPreCol());
+				p.setRow(p.getPreRow());
+//				if(!Model.Question_Answer.checkWay(p.getRow(), p.getCol(), Graph)) {
+//					System.out.print("true");
+//				}
+				
 			}
 
 		
@@ -200,16 +247,16 @@ public class MazePanel extends JPanel implements ActionListener {
 	}
 
 	public void getImage() {
-		img = new ImageIcon("icon\\DoorReady.png");
-		DoorReady = img.getImage();
+		img = new ImageIcon("icon\\DoorClose.png");
+		DoorClose = img.getImage();
 		img = new ImageIcon("icon\\Entrange.png");
 		Entrange = img.getImage();
 		img = new ImageIcon("icon\\Exit.png");
 		Exit = img.getImage();
-		img = new ImageIcon("icon\\RoomClose.png");
-		RoomClose = img.getImage();
-		img = new ImageIcon("icon\\RoomOpen.png");
-		RoomOpen = img.getImage();
+		img = new ImageIcon("icon\\RoomLock.png");
+		RoomLock = img.getImage();
+		img = new ImageIcon("icon\\DoorOpen.png");
+		DoorOpen = img.getImage();
 		img = new ImageIcon("icon\\Street.png");
 		Street = img.getImage();
 		img = new ImageIcon("icon\\Wall.png");

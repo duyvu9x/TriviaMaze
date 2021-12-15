@@ -22,6 +22,10 @@ public class SQLtest {
 	
 	private static SQLiteDataSource ds = null;
 	
+//	public void SQLTest() {
+//		
+//	}
+	
     public static void main(String[] args) throws SQLException {
         
     	//
@@ -133,59 +137,59 @@ public class SQLtest {
     	        
         String query1 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'The insect that starves to death in its adult stage because it does not have a mouth is a:', "
-    			+ " '1. Luna Moth',"
-    			+ " '2. Poodle Moth',"
-    			+ " '3. Glasswing Hawk Moth',"
-    			+ " '4. Rosy Maple Moth' )";
+    			+ " 'Luna Moth',"
+    			+ " 'Poodle Moth',"
+    			+  " 'Luna Moth',"
+    			+ " 'Rosy Maple Moth' )";
         
         String query2 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'A substance that is harmless to bugs is:', "
-    			+ " '1. none of the above',"
-    			+ " '2. capsaicin',"
-    			+ " '3. caffeine' ,"
-    			+ " '4. rosin' )";
+    			+ " 'caffeine' ,"
+    			+ " 'capsaicin',"
+    			+ " 'caffeine' ,"
+    			+ " 'rosin' )";
         
         String query3 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'Satoshi Tajiri developed Pokemon from one of the following experiences with animals:', "
-    			+ " '1. Bug catching',"
-    			+ " '2. Bird watching',"
-    			+ " '3. Pet keeping' ,"
-    			+ " '4. Rodent control' )";
+    			+ " 'Bird watching',"
+    			+ " 'Bird watching',"
+    			+ " 'Pet keeping' ,"
+    			+ " 'Rodent control' )";
         
         String query4 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'The mammal with the densest fur/hair is:', "
-    			+ " '1. Sea Otter',"
-    			+ " '2. Arctic Fox',"
-    			+ " '3. Polar Bear' ,"
-    			+ " '4. Tibetan Mastiff' )";
+    			+" 'Polar Bear' ,"
+    			+ " 'Arctic Fox',"
+    			+ " 'Polar Bear' ,"
+    			+ " 'Tibetan Mastiff' )";
         
         String query5 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'This food is typically fed to pregnant dogs to gain weight:', "
-    			+ " '1. Cottage Cheese',"
-    			+ " '2. Bananas',"
-    			+ " '3. Ham' ,"
-    			+ " '4. Unseasoned Burger Meat' )";
+    			+ " 'Bananas',"
+    			+ " 'Bananas',"
+    			+ " 'Ham' ,"
+    			+ " 'Unseasoned Burger Meat' )";
         
         String query6 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'The bird that lays the largest eggs compared to its body is:', "
-    			+ " '1. Kiwi',"
-    			+ " '2. Bald Eagle',"
-    			+ " '3. Kakapo' ,"
-    			+ " '4. Humingbird' )";
+    			+ " 'Kiwi',"
+    			+ " 'Bald Eagle',"
+    			+ " 'Kiwi',"
+    			+ " 'Humingbird' )";
         
         String query7 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'The size of a newborn kangaroo is:', "
-    			+ " '1. 1 inch',"
-    			+ " '2. 2 inches',"
-    			+ " '3. 3 inches' ,"
-    			+ " '4. 4 inches' )";
+    			+" '3 inches' ,"
+    			+ " '2 inches',"
+    			+ " '3 inches' ,"
+    			+ " '4 inches' )";
         
         String query8 = "INSERT INTO questions ( QUESTION, ANSWER, ANS1, ANS2, ANS3 ) "
     			+ "VALUES ( 'What advantage do slugs have over snails?', "
-    			+ " '1. Needs less calcium',"
-    			+ " '2. More defenses',"
-    			+ " '3. Moves faster' ,"
-    			+ " '4. None of the above' )";
+    			+ " 'More defenses',"
+    			+ " 'More defenses',"
+    			+ " 'Moves faster' ,"
+    			+ " 'None of the above' )";
         
         try ( Connection conn = ds.getConnection();
               Statement stmt = conn.createStatement(); ) {

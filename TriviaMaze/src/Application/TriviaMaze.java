@@ -1,18 +1,17 @@
 package Application;
 
-import javax.swing.*;
-
 import GUI.TriviaMazeGUI;
 import Model.Player;
 
 import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class TriviaMaze {
 
-	public static Player myPlayerGroup12 = new Player();
+	public static Player myPlayerGroup12 ;
 	
 	public static Scanner inputFile;
 	
@@ -20,6 +19,7 @@ public class TriviaMaze {
 	
 
 	public static void main(String[] args) {
+		myPlayerGroup12 = new Player();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,8 +36,17 @@ public class TriviaMaze {
 	
 	
 	public static void openFile() {
+		File dir = new File("map//Easy");
+        String[] triG = dir.list();
+        Collections.shuffle(Arrays.asList(triG));
+        System.out.println(triG[0]);
+
+        String path = "map//Easy//"+triG[0];
+        
+        
+        
 		try {
-			inputFile = new Scanner(new File("map\\easy\\easy_map1.txt"));
+			inputFile = new Scanner(new File(path));
 			
 		}catch(Exception e) {
 			System.out.println("Can not find file");

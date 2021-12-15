@@ -7,18 +7,26 @@ import java.util.Map;
 import javax.swing.*;
 
 import java.awt.*;
-import Application.*;
 
 public class Player {
 	private ImageIcon img = new ImageIcon("icon\\Player.png");
+	private Image playerImg = img.getImage();
 	private int Row;
 	private int Col;
+	private int preRow;
+	private int preCol;
 	private String myID;
 	private char[][] myGraph;
-	private Image playerImg = img.getImage();
+
+	
 
 
 	public Player() {
+		Row = 0;
+		Col = 0;
+		preCol = Col;
+		preRow = Row;
+		myGraph = null;
 
 	}
 
@@ -43,6 +51,13 @@ public class Player {
 
 		Col = Col - 1;
 
+	}
+	public Boolean canGo(int row, int col) {
+		if (row < 0 || row >= Row || col < 0 || col >= Col || myGraph[row][col] == '#' || myGraph[row][col] == '|') {
+			return false;
+		}
+
+		return true;
 	}
 
 	public Image getPlayerImage() {
@@ -76,6 +91,30 @@ public class Player {
 	
 	public void setMyGraph(char[][] myGraph) {
 		this.myGraph = myGraph;
+	}
+
+
+
+	public int getPreRow() {
+		return preRow;
+	}
+
+
+
+	public void setPreRow(int preRow) {
+		this.preRow = preRow;
+	}
+
+
+
+	public int getPreCol() {
+		return preCol;
+	}
+
+
+
+	public void setPreCol(int preCol) {
+		this.preCol = preCol;
 	}
 
 
