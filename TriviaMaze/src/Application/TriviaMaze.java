@@ -1,6 +1,7 @@
 package Application;
 
 import GUI.TriviaMazeGUI;
+
 import Model.Player;
 
 import java.awt.*;
@@ -9,15 +10,28 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class TriviaMaze {
+/**
+ * Class to run the program
+ * 
+ * @author Duy Vu
+ * @version Autumn 2021
+ */
 
-	public static Player myPlayerGroup12 ;
-	
-	public static Scanner inputFile;
-	
+public final class TriviaMaze {
+	/**
+	 * create player for game.
+	 */
+	public static Player myPlayerGroup12;
+	/**
+	 * Scanner Input File
+	 */
+	public static Scanner myInputFile;
 
-	
-
+	/**
+	 * declare player and run Framer.
+	 * 
+	 * @param args args
+	 */
 	public static void main(String[] args) {
 		myPlayerGroup12 = new Player();
 		EventQueue.invokeLater(new Runnable() {
@@ -31,55 +45,50 @@ public class TriviaMaze {
 			}
 		});
 	}
-	
-	
-	
-	
-	public static void openFile() {
-		File dir = new File("map//Easy");
-        String[] triG = dir.list();
-        Collections.shuffle(Arrays.asList(triG));
-        System.out.println(triG[0]);
 
-        String path = "map//Easy//"+triG[0];
-        
-        
-        
+	/**
+	 * open file by level.
+	 */
+	public static void openFile() {
+		File dir = new File("map//" + TriviaMaze.myPlayerGroup12.getLevel());
+		String[] triG = dir.list();
+		Collections.shuffle(Arrays.asList(triG));
+		System.out.println(triG[0]);
+
+		String path = "map//" + TriviaMaze.myPlayerGroup12.getLevel() + "//" + triG[0];
+
 		try {
-			inputFile = new Scanner(new File(path));
-			
-		}catch(Exception e) {
+			myInputFile = new Scanner(new File(path));
+
+		} catch (Exception e) {
 			System.out.println("Can not find file");
 		}
 	}
-	
-	// load map , entrange point for player.
+
+	/**
+	 * update map for player.
+	 */
 	public static void getNewMap() {
 		openFile();
-		int Row, Col ;
+		int Row, Col;
 		char[][] Map = null;
-		while(inputFile.hasNext()) {
-			Row = inputFile.nextInt();
-			Col = inputFile.nextInt();
+		while (myInputFile.hasNext()) {
+			Row = myInputFile.nextInt();
+			Col = myInputFile.nextInt();
 			Map = new char[Row][Col];
-			for( int i = 0 ; i < Row ; i ++) {
-				String str = inputFile.next();
-				for( int j = 0 ; j < Col ; j++) {
+			for (int i = 0; i < Row; i++) {
+				String str = myInputFile.next();
+				for (int j = 0; j < Col; j++) {
 					Map[i][j] = str.charAt(j);
-					
+
 				}
 			}
-			myPlayerGroup12.setRow(inputFile.nextInt()) ;
-			myPlayerGroup12.setCol(inputFile.nextInt());
+			myPlayerGroup12.setRow(myInputFile.nextInt());
+			myPlayerGroup12.setCol(myInputFile.nextInt());
 		}
-		
+
 		myPlayerGroup12.setMyGraph(Map);
-			
-		
+
 	}
-	
-	
-	
-	
 
 }

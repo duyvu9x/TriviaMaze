@@ -41,6 +41,7 @@ public class sound {
 				default: System.out.println("Not a valid response");
 			}
 		}
+		scanner.close();
 	}
 	
 	public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {

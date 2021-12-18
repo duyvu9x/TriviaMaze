@@ -1,0 +1,6 @@
+Instructions:
+1. When you start, choose an available direction to go until you reach a door.
+2. Answer the trivia question correctly. If it is correct, you can pass through. Otherwise, the door locks and you cannot pass through.
+3. You win once you reach the exit.
+4. You lose if you answer incorrectly too many times and run out of available paths. You can retry.
+5. You can save, load, or exit out of your game any time.
