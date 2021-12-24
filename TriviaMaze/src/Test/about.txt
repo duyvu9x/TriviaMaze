@@ -1,0 +1,2 @@
+About the game:
+The Trivia Maze is a game about traversing a maze by answering trivia questions correctly and reaching the exit.

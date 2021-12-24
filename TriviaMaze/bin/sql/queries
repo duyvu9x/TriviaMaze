@@ -1,0 +1,9 @@
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'Last name of Java creator?', 'Gosling' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '2Last name of Java creator?', 'Gosling2' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '3Last name of Java creator?', 'Gosling3' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '4Last name of Java creator?', 'Gosling4' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '55Last name of Java creator?', 'Gosling5' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '6Last name of Java creator?', 'Gosling6' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '7Last name of Java creator?', 'Gosling7' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '8Last name of Java creator?', 'Gosling8' )";
+"INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '9Last name of Java creator?', 'Gosling9' )";
